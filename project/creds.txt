@@ -1,0 +1,17 @@
+zabbix 8080:
+    login: Admin
+    password: zabbix
+
+zabbix postgres 10432:
+    login: zabbix
+    password: zabbix
+    db: zabbix
+
+airflow 8081:
+    login: admin
+    password: airflow
+
+airflow postgres 10433:
+    login: airflow
+    password: airflow
+    db: airflow
