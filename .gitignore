@@ -218,3 +218,6 @@ time.py
 /logs
 ./project/airflow/config
 /project/airflow/config
+
+
+.vscode
