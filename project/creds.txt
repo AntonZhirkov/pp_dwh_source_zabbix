@@ -15,3 +15,7 @@ airflow postgres 10433:
     login: airflow
     password: airflow
     db: airflow
+
+clickhouse 9000:
+    login: clickhouse
+    password: clickhouse

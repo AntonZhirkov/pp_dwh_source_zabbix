@@ -1,3 +1,4 @@
+!/bin/bash
 docker-compose up -d 
 
 sleep 60
@@ -11,3 +12,12 @@ docker exec airflow-scheduler airflow connections add 'zabbix-postgres' \
     --conn-host 'zabbix-postgres-server' \
     --conn-port '5432' \
     --conn-schema 'zabbix'
+
+
+docker exec airflow-scheduler airflow connections add 'dwh-zabbix-clickhouse' \
+    --conn-type 'generic' \
+    --conn-login 'clickhouse' \
+    --conn-password 'clickhouse' \
+    --conn-host 'clickhouse' \
+    --conn-port '9000' \
+    --conn-schema 'default'
