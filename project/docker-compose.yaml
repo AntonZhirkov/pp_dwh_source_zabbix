@@ -94,6 +94,7 @@ services:
       - ./airflow/dags:/opt/airflow/dags
       - ./airflow/logs:/opt/airflow/logs
       - ./airflow/config:/opt/airflow/config
+      - ./airflow/sql:/opt/airflow/sql
     ports:
       - "8081:8080"
     command: >
@@ -122,6 +123,7 @@ services:
       - ./airflow/dags:/opt/airflow/dags
       - ./airflow/logs:/opt/airflow/logs
       - ./airflow/config:/opt/airflow/config
+      - ./airflow/sql:/opt/airflow/sql
     command: > 
       bash -c "
       pip install -U airflow-clickhouse-plugin && 

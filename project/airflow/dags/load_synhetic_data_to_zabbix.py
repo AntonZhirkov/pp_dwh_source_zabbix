@@ -39,7 +39,7 @@ def generate_cpu_util_data(
     clock = int(time.timestamp())
     ns = random.randint(100_000_000, 999_999_999)
     random_cpu = random.normalvariate(60, 20)
-    value = random_cpu if random_cpu < 100 else 99.9999
+    value = random_cpu if random_cpu < 100 and random_cpu > 0 else 99.9999
     return (itemid, clock, value, ns)
 
 def load_icmp_data(**kwargs):
@@ -124,9 +124,12 @@ def get_hosts(**kwargs):
     ti.xcom_push(key="hosts", value=hosts)
 
 with DAG(
-    dag_id="load_synthetic_data",
+    dag_id="load_synthetic_data_to_zabbix",
     default_args=default_args,
-    description="load metrics every 1 minute",
+    description="""
+        Загрузка метрик ICMP ping, CPU utilization, Bit sent/recieved 
+        в БД zabbix.
+    """,
     schedule="*/2 * * * *",
     catchup=True
 ) as dag:

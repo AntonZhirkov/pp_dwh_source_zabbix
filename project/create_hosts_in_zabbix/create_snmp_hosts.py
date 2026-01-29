@@ -7,12 +7,15 @@ from time import sleep
 from dotenv import load_dotenv
 from tqdm import tqdm
 
+from utils import CITY
+
 load_dotenv()
 
 ZABBIX_URL = os.getenv("ZABBIX_URL", "ZABBIX_URL")
 ZABBIX_USER = os.getenv("ZABBIX_USER", "ZABBIX_USER")
 ZABBIX_PASSWORD = os.getenv("ZABBIX_PASSWORD", "ZABBIX_PASSWORD")
 HOSTS = int(os.getenv("HOST_COUNTS", 1))
+
 
 class ZabbixManagement:
     
@@ -136,6 +139,22 @@ class ZabbixManagement:
             data=json.dumps(payload), 
             headers=self.get_header(token)
         )
+        
+    def add_city(self, token: str, host_id: str, city: str) -> None:
+        payload = {
+            "jsonrpc": "2.0",
+            "method": "host.update",
+            "params": {
+                "hostid": host_id,
+                "description": city
+            },
+            "id": 1
+        }
+        requests.post(
+            ZABBIX_URL, 
+            data=json.dumps(payload), 
+            headers=self.get_header(token)
+        )
 
     @staticmethod
     def generate_ip_address() -> str:
@@ -177,6 +196,11 @@ if __name__ == "__main__":
             token=token, 
             host_id=host,
             interface_id=interface_id
+        )
+        zabbix.add_city(
+            token=token,
+            host_id=host,
+            city=random.choice(CITY)
         )
         zabbix.disable_host(token=token, host_id=host)
         sleep(10)
