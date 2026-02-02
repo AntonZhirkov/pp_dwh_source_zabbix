@@ -26,6 +26,12 @@ with DAG(
         sql="./stg/DDL_crate_database_stg.sql"
     )
     
+    create_stg_host_metric = ClickHouseOperator(
+        task_id="create_stg_host_metric",
+        clickhouse_conn_id="dwh-zabbix-clickhouse",
+        sql="./stg/DDL_create_stg_host_metric.sql"
+    )
+    
     create_dds_layer = ClickHouseOperator(
         task_id="create_dds_layer",
         clickhouse_conn_id="dwh-zabbix-clickhouse",
@@ -44,7 +50,7 @@ with DAG(
     )
     
     [
-        create_stg_layer, 
+        create_stg_layer >> create_stg_host_metric, 
         create_dds_layer, 
         create_cdm_layer
     ] >> stop_dag # type: ignore

@@ -43,9 +43,9 @@ services:
       POSTGRES_PASSWORD: zabbix
       POSTGRES_DB: zabbix
       ZBX_SERVER_HOST: zabbix-server
-      PHP_TZ: Europe/Moscow  # Установите свою временную зону
+      PHP_TZ: UTC
     ports:
-      - "8080:8080"  # Веб-интерфейс будет доступен на порту 8080
+      - "8080:8080"  
     networks:
       zabbix-networks:
         ipv4_address: 172.22.0.30
