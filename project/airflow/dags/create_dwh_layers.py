@@ -1,7 +1,9 @@
+from datetime import datetime, timedelta
+
 from airflow import DAG
 from airflow.operators.bash import BashOperator
 from airflow_clickhouse_plugin.operators.clickhouse import ClickHouseOperator
-from datetime import datetime, timedelta
+
 
 default_args = {
     "owner": "AntonZhirkov",
